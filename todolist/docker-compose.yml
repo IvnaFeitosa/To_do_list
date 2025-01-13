@@ -1,0 +1,26 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:latest
+    environment:
+      SECRET_KEY_BASE: dul4OKKwAyRDscoFTBxDvd37NaBcB79Z/ToRSa8oHTft+JGusc5YEj6S/YwKJyuSTz+HfDVywCEVGc+Abo1hyegWZ5PKs3gKLpURPY806jojqG44samtgF9XhqrWr8amConE2FTCQc8tPGZlTh+3CVDZNFlxn67vRraRjNbKbJ9iHGuAE78nuBICO9Cgzgnvw7OQT7VvSUxVAcw8ukPNWmhZsOpxGX44xAdHuaY2Dm+VkuE8+O2B6c2i4ccb7VYVGKnw+vk4YLvBAqgMGh9BeuBMzyfrW8Ge5V3BeCRw0bBMa14I8Msb8FPan0xik7PmOe/mtQPLil2oMYTsNq5brOFaDgKlMd+oXsr1jZR3lI/xjXUAMN/CfpEnpCJ8hMRX0lL/6i76wmNjJoFuicMTv7TkeMl2BQsZkUm0JiOabckWZ0r9No/mNGNAt4P6WmMyNdIQ6/iyVj0IUHeZl3hyUSO3YnjDOFoTLL2h6oPdsHSbD5uEHupPhI/L--/e/bohT+NEDGl1JW--Em6Xy0Pw8P2yRp+o2Qw4DA==
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+  web:
+    environment:
+      SECRET_KEY_BASE: dul4OKKwAyRDscoFTBxDvd37NaBcB79Z/ToRSa8oHTft+JGusc5YEj6S/YwKJyuSTz+HfDVywCEVGc+Abo1hyegWZ5PKs3gKLpURPY806jojqG44samtgF9XhqrWr8amConE2FTCQc8tPGZlTh+3CVDZNFlxn67vRraRjNbKbJ9iHGuAE78nuBICO9Cgzgnvw7OQT7VvSUxVAcw8ukPNWmhZsOpxGX44xAdHuaY2Dm+VkuE8+O2B6c2i4ccb7VYVGKnw+vk4YLvBAqgMGh9BeuBMzyfrW8Ge5V3BeCRw0bBMa14I8Msb8FPan0xik7PmOe/mtQPLil2oMYTsNq5brOFaDgKlMd+oXsr1jZR3lI/xjXUAMN/CfpEnpCJ8hMRX0lL/6i76wmNjJoFuicMTv7TkeMl2BQsZkUm0JiOabckWZ0r9No/mNGNAt4P6WmMyNdIQ6/iyVj0IUHeZl3hyUSO3YnjDOFoTLL2h6oPdsHSbD5uEHupPhI/L--/e/bohT+NEDGl1JW--Em6Xy0Pw8P2yRp+o2Qw4DA==
+    build: .
+    command: ./bin/thrust ./bin/rails server
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+
+volumes:
+  db-data:

@@ -1,4 +1,9 @@
 #!/bin/bash -e
+# Ensure SECRET_KEY_BASE is set
+if [ -z "$SECRET_KEY_BASE" ]; then
+    echo "Error: SECRET_KEY_BASE is not set. Exiting."
+    exit 1
+fi
 
 # Enable jemalloc for reduced memory usage and latency.
 if [ -z "${LD_PRELOAD+x}" ]; then
